@@ -94,7 +94,7 @@ if ( param('do') ) {
 
 # Vars for template
 $template_title = "LoxBerry: Fhem Plugin";
-$loxberryhost = "$ENV{HTTP_HOST}";
+$loxberryhost = "$ENV{SERVER_ADDR}";
 $fhemstatus = qx($installfolder/system/daemons/plugins/$psubfolder status);
 
 # Print Template
