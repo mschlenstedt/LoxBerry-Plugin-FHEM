@@ -10,8 +10,8 @@ ARGV5=$5 # Fifth argument is Base folder of LoxBerry
 echo "<INFO> Copy back existing config files"
 cp -p -v -r /tmp/$ARGV1\_upgrade/config/$ARGV3 $ARGV5/config/plugins/
 
-#echo "<INFO> Copy back existing data files"
-#cp -p -v -r /tmp/$ARGV1\_upgrade/data/$ARGV3 $ARGV5/data/plugins/
+echo "<INFO> Copy back existing data files"
+cp -p -v -r /tmp/$ARGV1\_upgrade/data/$ARGV3 $ARGV5/data/plugins/
 
 echo "<INFO> Copy back existing log files"
 cp -p -v -r /tmp/$ARGV1\_upgrade/log/$ARGV3 $ARGV5/log/plugins/
