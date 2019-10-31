@@ -52,7 +52,7 @@ our $do;
 ##########################################################################
 
 # Version of this script
-$version = "0.0.1";
+$version = "0.5.0.1";
 
 # Figure out in which subfolder we are installed
 $psubfolder = abs_path($0);
@@ -82,20 +82,20 @@ print "Content-Type: text/html\n\n";
 if ( param('do') ) { 
 	$do = quotemeta( param('do') ); 
 	if ( $do eq "start") {
-		system ("$installfolder/system/daemons/plugins/$psubfolder start");
+		system ("sudo $installfolder/bin/plugins/$psubfolder/fhemservice start");
 	}
 	if ( $do eq "stop") {
-		system ("$installfolder/system/daemons/plugins/$psubfolder stop");
+		system ("sudo $installfolder/bin/plugins/$psubfolder/fhemservice stop");
 	}
 	if ( $do eq "restart") {
-		system ("$installfolder/system/daemons/plugins/$psubfolder restart");
+		system ("sudo $installfolder/bin/plugins/$psubfolder/fhemservice restart");
 	}
 }
 
 # Vars for template
 $template_title = "LoxBerry: Fhem Plugin";
 $loxberryhost = "$ENV{SERVER_ADDR}";
-$fhemstatus = qx($installfolder/system/daemons/plugins/$psubfolder status);
+$fhemstatus = qx(sudo $installfolder/bin/plugins/$psubfolder/fhemservice status);
 
 # Print Template
 
