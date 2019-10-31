@@ -38,3 +38,13 @@ This Plugin has no options. The complete configuration is done directly within F
 <p>
 <a id="button" data-role="button" data-inline="false" data-mini="false" href="http://<!--$loxberryhost-->:8085/fhem" target="_blank">Visit Fhem (Tablet)</a>
 </p>
+<br>
+<p>
+Smartphone and Tablet Webinterface is disabled by default. To activate, enter the following commands in FHEM and save them to the config:
+</p>
+<pre>
+define WEBphone FHEMWEB 8084 global
+attr WEBphone stylesheetPrefix smallscreen
+define WEBtablet FHEMWEB 8085 global
+attr WEBtablet stylesheetPrefix touchpad
+</pre>
