@@ -20,8 +20,25 @@ PCONFIG=$LBPCONFIG/$PDIR
 PSBIN=$LBPSBIN/$PDIR
 PBIN=$LBPBIN/$PDIR
  
-echo "<INFO> Adjust FHEM config to some default values..."
-/bin/sed -i 's:^define initialUsbCheck notify:#define initialUsbCheck notify:g' /opt/fhem/fhem.cfg
+if [ -e "$PDATA/fhem.pl" ]; then
+	echo "<INFO> Found existing FHEM installation from old installation. Migrating to new installation..."
+	echo "<INFO> Copying files from existing FHEM installation..."
+	chown -R fhem:dialout $PDATA/*
+	cp -an $PDATA/* /opt/fhem
+	mkdir $PDATA/oldinstall
+	mv $PDATA/* $PDATA/oldinstall
+	cp $PCONFIG/fhem.cfg /opt/fhem
+	mv $PCONFIG/fhem.cfg $PCONFIG/fhem.cfg.oldinstall
+	echo "<INFO> Adjust FHEM config to some default values..."
+	/bin/sed -i 's:^define initialUsbCheck notify:#define initialUsbCheck notify:g' /opt/fhem/fhem.cfg
+	/bin/sed -i 's:/loxberry/log/plugins/fhem/fhem.log:/fhem/log/fhem-%Y-%m.log:g' /opt/fhem/fhem.cfg
+	/bin/sed -i 's:/loxberry/data/plugins/fhem/fhem.save:/fhem/fhem.save:g' /opt/fhem/fhem.cfg
+	/bin/sed -i 's:/loxberry/log/plugins/fhem/%NAME.log:/fhem/log/%NAME.log:g' /opt/fhem/fhem.cfg
+	/bin/sed -i 's:/loxberry/data/plugins/fhem/eventTypes.txt:/fhem/eventTypes.txt:g' /opt/fhem/fhem.cfg
+else
+	echo "<INFO> Adjust FHEM config to some default values..."
+	/bin/sed -i 's:^define initialUsbCheck notify:#define initialUsbCheck notify:g' /opt/fhem/fhem.cfg
+fi
 chown fhem:dialout /opt/fhem/fhem.cfg
 
 exit 0
