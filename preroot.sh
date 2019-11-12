@@ -53,4 +53,11 @@ echo "deb http://debian.fhem.de/nightly/ /" > /etc/apt/sources.list.d/fhem.list
 echo "<INFO> Updating apt databases..."
 apt-get -q -y update
 
+if pgrep -f fhem > /dev/null 2>&1 ; then
+	echo "<INFO> Killing an existing FHEM..."
+        pkill -f fhem
+        sleep 0.1
+        pkill -9 -f fhem
+fi
+
 exit 0
