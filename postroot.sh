@@ -41,4 +41,11 @@ else
 fi
 chown fhem:dialout /opt/fhem/fhem.cfg
 
+echo "<INFO> Killing any older FHEM instances..."
+pkill -f "/usr/bin/perl fhem.pl"
+
+echo "<INFO> Enabling FHEM System Service..."
+systemctl enable fhem
+systemctl start fhem
+
 exit 0
